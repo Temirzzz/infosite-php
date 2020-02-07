@@ -1,0 +1,101 @@
+<?php
+error_reporting(E_ALL);
+ini_set('display_errors', 'on');
+
+function connect () {
+    $conn = mysqli_connect(SERVERNAME, USENAME, PASSWORD, BASENAME);
+    mysqli_set_charset($conn, "utf8");
+
+    if (mysqli_connect_errno()) {
+        printf("Не удалось подключиться: %s\n", mysqli_connect_error());
+        exit();
+    }
+    return $conn;
+}
+
+function select ($conn) {
+    $sql = "SELECT * FROM info";
+    $result = mysqli_query($conn, $sql);
+
+    $a = array();
+
+    if (mysqli_num_rows($result) > 0) {
+        while($row = $result->fetch_assoc()) {
+            $a[] = $row;
+        }
+    }      
+    return $a;
+}
+
+function select_main ($conn) {
+    $offset = 0;
+
+    if (isset($_GET['page']) AND trim($_GET['page']) != '') {
+        $offset = trim($_GET['page']);
+    }
+
+    $sql = "SELECT * FROM info ORDER BY id DESC LIMIT 3 OFFSET ".$offset*3;
+    $result = mysqli_query($conn, $sql);
+
+    $a = array();
+
+    if (mysqli_num_rows($result) > 0) {
+        while($row = $result->fetch_assoc()) {
+            $a[] = $row;
+        }
+    }      
+    return $a;
+}
+
+function pagination_count ($conn) {
+    $sql = "SELECT * FROM info";
+    $result = mysqli_query($conn, $sql);
+    $result = mysqli_num_rows($result);
+    //var_dump($result);
+    return ceil($result/3);
+}
+
+function get_all_tags ($conn) {
+    $sql = "SELECT DISTINCT(tag) FROM tag";
+    $result = mysqli_query($conn, $sql);
+
+    $a = array();
+
+    if (mysqli_num_rows($result) > 0) {
+        while($row = $result->fetch_assoc()) {
+            $a[] = $row['tag'];
+        }
+    }      
+    return $a;
+}
+
+
+function get_post_from_tags ($conn) {
+    $sql = "SELECT post FROM tag WHERE tag='".$_GET['tag']."'";
+    $result = mysqli_query($conn, $sql);
+
+    $a = array();
+
+    if (mysqli_num_rows($result) > 0) {
+        while($row = $result->fetch_assoc()) {
+            $a[] = $row['post'];
+        }
+    }      
+    $sql = "SELECT * FROM info WHERE id in (".join(",", $a). ")";
+    $result = mysqli_query($conn, $sql);
+
+    $a = array();
+
+    if (mysqli_num_rows($result) > 0) {
+        while($row = $result->fetch_assoc()) {
+            $a[] = $row;
+        }
+    }      
+    return $a;
+}
+
+
+
+function close ($conn) {
+    mysqli_close($conn);
+}
