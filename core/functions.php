@@ -47,6 +47,19 @@ function select_main ($conn) {
     return $a;
 }
 
+function select_article ($conn) {
+    $sql = "SELECT * FROM info WHERE id=".$_GET['id'];
+    $result = mysqli_query($conn, $sql);
+
+    $a = array();
+
+    if (mysqli_num_rows($result) > 0) {
+        $row = $result->fetch_assoc();
+        return $row;        
+    }      
+    return false;
+}
+
 function pagination_count ($conn) {
     $sql = "SELECT * FROM info";
     $result = mysqli_query($conn, $sql);
@@ -69,6 +82,19 @@ function get_all_tags ($conn) {
     return $a;
 }
 
+function get_article_tags ($conn) {
+    $sql = "SELECT * FROM tag WHERE post=".$_GET['id'];
+    $result = mysqli_query($conn, $sql);
+
+    $a = array();
+
+    if (mysqli_num_rows($result) > 0) {
+        while($row = $result->fetch_assoc()) {
+            $a[] = $row;
+        }
+    }      
+    return $a;
+}
 
 function get_post_from_tags ($conn) {
     $sql = "SELECT post FROM tag WHERE tag='".$_GET['tag']."'";

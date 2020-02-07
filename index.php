@@ -28,20 +28,20 @@ for ($i = 0; $i < count($data); $i++) {
     $out .= "<img src='./images/{$data[$i]['image']}'>";
     $out .= "<h2>{$data[$i]['title']}</h2>";
     $out .= "<p>{$data[$i]['descr_min']}</p>";
-    $out .= "<p><a href='./article.php?id='{$data[$i]['id']}'>Read more</a></p>";
+    $out .= '<p><a href="./article.php?id='.$data[$i]['id'].'">Read more</a></p>';
     $out .= '<hr>';
 }
 echo $out;
 
 for ($i = 0; $i < $countPage; $i++) {
     $j = $i + 1;
-    echo "<span><a href='./index.php?page={$i}' style='padding: 5px;'>{$j}</a></span>";
+    echo "<a href='./index.php?page={$i}' style='padding: 5px;'>{$j}</a>";
 }
 
 echo '<hr>';
 
 for ($i = 0; $i < count($tag); $i++) {
-    echo "<span><a href='./tag.php?tag={$tag[$i]}' style='padding: 5px;'>{$tag[$i]}</a></span>";
+    echo "<a href='./tag.php?tag={$tag[$i]}' style='padding: 5px;'>{$tag[$i]}</a>";
 }
 
 ?>
