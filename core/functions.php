@@ -51,14 +51,14 @@ function select_article ($conn) {
     $sql = "SELECT * FROM info WHERE id=".$_GET['id'];
     $result = mysqli_query($conn, $sql);
 
-    $a = array();
-
     if (mysqli_num_rows($result) > 0) {
-        $row = $result->fetch_assoc();
-        return $row;        
-    }      
+        $row = mysqli_fetch_assoc($result);
+        return $row;
+    } 
     return false;
 }
+
+//------------------------------------------
 
 function pagination_count ($conn) {
     $sql = "SELECT * FROM info";
@@ -81,13 +81,12 @@ function get_all_tags ($conn) {
     }      
     return $a;
 }
-
+//--------------------------------------------------
 function get_article_tags ($conn) {
     $sql = "SELECT * FROM tag WHERE post=".$_GET['id'];
     $result = mysqli_query($conn, $sql);
 
     $a = array();
-
     if (mysqli_num_rows($result) > 0) {
         while($row = $result->fetch_assoc()) {
             $a[] = $row;
@@ -96,18 +95,33 @@ function get_article_tags ($conn) {
     return $a;
 }
 
+//-------------------------------------------------
 function get_post_from_tags ($conn) {
     $sql = "SELECT post FROM tag WHERE tag='".$_GET['tag']."'";
     $result = mysqli_query($conn, $sql);
-
+    
     $a = array();
-
     if (mysqli_num_rows($result) > 0) {
-        while($row = $result->fetch_assoc()) {
+        while($row = mysqli_fetch_assoc($result)) {
             $a[] = $row['post'];
         }
-    }      
-    $sql = "SELECT * FROM info WHERE id in (".join(",", $a). ")";
+    } 
+
+    $sql = "SELECT * FROM info WHERE id in (".join(",", $a).")";
+    $result = mysqli_query($conn, $sql);
+    
+    $a = array();
+    if (mysqli_num_rows($result) > 0) {
+        while($row = mysqli_fetch_assoc($result)) {
+            $a[] = $row;
+        }
+    } 
+    return $a;
+}
+
+//------------------------------
+function get_post_from_category ($conn) {
+    $sql = "SELECT * FROM info WHERE category=".$_GET['id'];
     $result = mysqli_query($conn, $sql);
 
     $a = array();
@@ -116,12 +130,36 @@ function get_post_from_tags ($conn) {
         while($row = $result->fetch_assoc()) {
             $a[] = $row;
         }
-    }      
+    }          
     return $a;
 }
 
+//--------------------tcnm
+function get_cat_info ($conn) {
+    $sql = "SELECT * FROM category WHERE id=".$_GET['id'];
+    $result = mysqli_query($conn, $sql);
 
+    $a = array();
 
+    if (mysqli_num_rows($result) > 0) {
+        $row = $result->fetch_assoc();
+    }          
+    return $row;
+}
+//-----------------tcnm
+function get_all_cat_info ($conn) {
+    $sql = "SELECT * FROM category";
+    $result = mysqli_query($conn, $sql);
+
+    $a = array();
+    if (mysqli_num_rows($result) > 0) {
+        while($row = $result->fetch_assoc()) {
+            $a[] = $row;
+        }
+    }          
+    return $a;
+}
+//-----------------------------------------
 function close ($conn) {
     mysqli_close($conn);
 }

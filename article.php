@@ -1,5 +1,5 @@
 <?php
-require 'core/config.php';
+require_once 'core/config.php';
 require_once 'core/functions.php';
 
 $conn = connect();
@@ -19,16 +19,18 @@ close($conn);
 </head>
 <body>
 
-<?php 
+<?php
 
 $out = '';
-$out .= "<h1>{$data['title']}</h1>";
-$out .= "<img src='./images/{$data['image']}'>";
-$out .= "<div>{$data['description']}</div>";
+$out .="<h1>{$data['title']}</h1>";
+$out .="<img src='./images/{$data['image']}'>";
+$out .="<div>{$data['description']}</div>";
 echo $out;
+//var_dump($tag);
 
-for ($i = 0; $i < count($tag); $i++) {
-    echo "<a href='./tag.php?tag={$tag[$i]['tag']}' style='padding-right: 5px;'>{$tag[$i]['tag']}</a>";
+echo '<hr>';
+for ($i=0; $i < count($tag); $i++){
+echo "<a href='./tag.php?tag={$tag[$i]['tag']}' style='padding: 5px;'>{$tag[$i]['tag']}</a>";
 }
 
 ?>

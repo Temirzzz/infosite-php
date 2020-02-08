@@ -3,10 +3,8 @@ require 'core/config.php';
 require_once 'core/functions.php';
 
 $conn = connect();
-$data = select_main($conn);
-$countPage = pagination_count($conn);
-$tag = get_all_tags($conn);
-$cat = get_all_cat_info($conn);
+$data = get_post_from_category($conn);
+$cat = get_cat_info($conn);
 close($conn);
 ?>
 
@@ -21,15 +19,9 @@ close($conn);
 <body>
 
 <?php 
-$out = '';
-echo '<hr>';
-for ($i = 0; $i < count($cat); $i++) {
-    $out .= '<p><a href="./category.php?id='.$cat[$i]['id'].'">'.$cat[$i]['description'].'</a></p>';
-}
-echo $out;
+echo "<h1>{$cat['category']}</h1>";
 
 $out = '';
-
 for ($i = 0; $i < count($data); $i++) {
     $out .= "<img src='./images/{$data[$i]['image']}'>";
     $out .= "<h2>{$data[$i]['title']}</h2>";
@@ -39,15 +31,8 @@ for ($i = 0; $i < count($data); $i++) {
 }
 echo $out;
 
-for ($i = 0; $i < $countPage; $i++) {
-    $j = $i + 1;
-    echo "<a href='./index.php?page={$i}' style='padding: 5px;'>{$j}</a>";
-}
-
-echo '<hr>';
-
-for ($i = 0; $i < count($tag); $i++) {
-    echo "<a href='./tag.php?tag={$tag[$i]}' style='padding: 5px;'>{$tag[$i]}</a>";
-}
-
+?>
+<hr>
+<?php
+echo $cat['description'];
 ?>
