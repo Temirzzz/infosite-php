@@ -1,8 +1,6 @@
 <?php
-require 'core/config.php';
-require_once 'core/functions.php';
+require_once('template/header.php');
 
-$conn = connect();
 $data = get_post_from_tags ($conn);
 $tag = get_all_tags($conn);
 
@@ -37,4 +35,8 @@ for ($i = 0; $i < count($tag); $i++) {
     echo "<span><a href='./tag.php?tag={$tag[$i]}' style='padding: 5px;'>{$tag[$i]}</a></span>";
 }
 
+?>
+
+<?php
+require_once('template/footer.php');
 ?>

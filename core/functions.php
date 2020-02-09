@@ -58,7 +58,6 @@ function select_article ($conn) {
     return false;
 }
 
-//------------------------------------------
 
 function pagination_count ($conn) {
     $sql = "SELECT * FROM info";
@@ -81,7 +80,8 @@ function get_all_tags ($conn) {
     }      
     return $a;
 }
-//--------------------------------------------------
+
+
 function get_article_tags ($conn) {
     $sql = "SELECT * FROM tag WHERE post=".$_GET['id'];
     $result = mysqli_query($conn, $sql);
@@ -95,7 +95,7 @@ function get_article_tags ($conn) {
     return $a;
 }
 
-//-------------------------------------------------
+
 function get_post_from_tags ($conn) {
     $sql = "SELECT post FROM tag WHERE tag='".$_GET['tag']."'";
     $result = mysqli_query($conn, $sql);
@@ -119,7 +119,6 @@ function get_post_from_tags ($conn) {
     return $a;
 }
 
-//------------------------------
 function get_post_from_category ($conn) {
     $sql = "SELECT * FROM info WHERE category=".$_GET['id'];
     $result = mysqli_query($conn, $sql);
@@ -134,7 +133,7 @@ function get_post_from_category ($conn) {
     return $a;
 }
 
-//--------------------tcnm
+
 function get_cat_info ($conn) {
     $sql = "SELECT * FROM category WHERE id=".$_GET['id'];
     $result = mysqli_query($conn, $sql);
@@ -146,7 +145,8 @@ function get_cat_info ($conn) {
     }          
     return $row;
 }
-//-----------------tcnm
+
+
 function get_all_cat_info ($conn) {
     $sql = "SELECT * FROM category";
     $result = mysqli_query($conn, $sql);
@@ -159,7 +159,17 @@ function get_all_cat_info ($conn) {
     }          
     return $a;
 }
-//-----------------------------------------
+
+function delete_article ($conn,$id) {
+    $sql = "DELETE FROM info WHERE id= '$id'";
+  
+    if (mysqli_query($conn, $sql)) {
+        return true;
+    } else {
+        return "Error: " . $sql . "<br>" . mysqli_error($conn);
+    }
+}
+
 function close ($conn) {
     mysqli_close($conn);
 }

@@ -1,11 +1,11 @@
 <?php
-require 'core/config.php';
-require_once 'core/functions.php';
+require_once('template/header.php');
 
 if (isset($_POST['title']) AND $_POST['title'] != '') { 
     $title = trim($_POST['title']);
     $descrMin = trim($_POST['descr-min']);
     $description = trim($_POST['description']);
+    $category = trim($_POST['category']);
     $tags = trim($_POST['tag']);
     $tags = explode(",", $tags);
     $newTags = [];
@@ -13,14 +13,12 @@ if (isset($_POST['title']) AND $_POST['title'] != '') {
         if (trim($tags[$i]) != '') $newTags[] = trim($tags[$i]);
     }
 
-
-
     move_uploaded_file($_FILES['image']['tmp_name'], 'images/'.$_FILES['image']['name']);
 
     $conn = connect ();
 
     if ($title !== '' and $descrMin !== '' and $description !== '') {
-        $sql = "INSERT INTO info (title, descr_min, description, image) VALUES ('".$title."', '".$descrMin."', '".$description."', '".$_FILES['image']['name']."')";
+        $sql = "INSERT INTO info (title, category, descr_min, description, image) VALUES ('".$title."', '".$category."', '".$descrMin."', '".$description."', '".$_FILES['image']['name']."')";
     }
     else {
         echo "Заполните все поля!";
@@ -41,25 +39,39 @@ if (isset($_POST['title']) AND $_POST['title'] != '') {
 }
 
 ?>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+        <h2>Create post</h2>
+            <form enctype="multipart/form-data" action="" method="POST">
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input type="text" class="form-control" id="title"  name="title" >
+                </div>
+                <div class="form-group">
+                    <label for="min-descr">Min description</label>
+                    <textarea class="form-control" id="min-descr"  name="descr-min"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="description">Title</label>
+                    <textarea class="form-control" id="description"  name="description" rows="5"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <input type="text" class="form-control" id="category"  name="category" >
+                </div>
+                <div class="form-group">
+                    <label for="tags">Tags</label>
+                    <input type="text" class="form-control" id="tags"  name="tag" >
+                </div>
+                <div class="form-group">
+                    <label for="addFile">Image</label>
+                    <input type="file" class="form-control-file" id="addFile" name="image">
+                </div>                
+                <button type="submit" class="btn btn-primary mb-2">Add</button>
+            </form>
+        </div>
+    </div>
+</div>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-<h2>Create post</h2>
-<form enctype="multipart/form-data" action="" method="POST">
-    <p>Title: <input type="text" name="title"></p>
-    <p>Min description: </p>
-    <textarea name="descr-min"></textarea>
-    <p>Description: </p>
-    <textarea name="description"></textarea>
-    <p>Photo: <input type="file" name="image"></p>
-    <p><input type="submit" value="add"></p>    
-    <p>tags: <input type="text" name="tag"></p>
-</form>
 
