@@ -24,7 +24,7 @@ for ($i = 0; $i < count($data); $i++) {
     $out .= "<img src='./images/{$data[$i]['image']}'>";
     $out .= "<h2>{$data[$i]['title']}</h2>";
     $out .= "<p>{$data[$i]['descr_min']}</p>";
-    $out .= "<p><a href='./article.php?id='{$data[$i]['id']}'>Read more</a></p>";
+    $out .= '<p><a href="./article.php?id='.$data[$i]['id'].'">Read more</a></p>';
     $out .= '<hr>';
 }
 echo $out;
