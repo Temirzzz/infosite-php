@@ -5,6 +5,7 @@ $conn = connect();
 require_once('template/header.php');
 
 
+
 if (isset($_POST['password']) AND $_POST['password'] != '') {
     $email = trim($_POST['email']);
     $password = trim($_POST['password']);
@@ -20,11 +21,9 @@ if (isset($_POST['password']) AND $_POST['password'] != '') {
         exit();
     }
     else {
-
+        echo "Вы ввели не верные данные!";
     }
 }
-
-
 ?>
 
 <div class="container">
@@ -33,13 +32,12 @@ if (isset($_POST['password']) AND $_POST['password'] != '') {
             <form method="POST">
                 <div class="form-group mt-5">
                     <label for="email">Email</label>
-                    <input type="text" class="form-control" id="email"  name="email" >
+                    <input type="email" class="form-control" id="email"  name="email" >
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input class="form-control" id="password"  name="password">
-                </div>
-                
+                    <input type="password" class="form-control" id="password"  name="password">
+                </div>                
                 <button type="submit" class="btn btn-primary mb-2">Войти</button>
             </form>
         </div>

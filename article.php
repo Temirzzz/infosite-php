@@ -1,6 +1,5 @@
 <?php
 require_once('template/header.php');
-
 $data = select_article($conn);
 $tag = get_article_tags($conn);
 close($conn);
@@ -24,13 +23,14 @@ close($conn);
                 <?php
                     echo '<hr>';
                     for ($i=0; $i < count($tag); $i++){
-                    echo "<a href='./tag.php?tag={$tag[$i]['tag']}' class='badge badge-info m-1 p-2 style='padding: 5px;'>{$tag[$i]['tag']}</a>";
+                    echo "<a href='./tag.php?tag={$tag[$i]['tag']}' class='badge badge-info m-1 p-2' style='padding: 5px;'>{$tag[$i]['tag']}</a>";
                     }
                 ?>
             </div>
         </div>
         <div class="col-lg-3">
             <?php require_once('template/nav.php') ?>
+        </div>
         </div>
     </div>
 </div>  

@@ -17,8 +17,6 @@ if (isset($_POST['title']) AND $_POST['title'] != '') {
         if (trim($tags[$i]) != '') $newTags[] = trim($tags[$i]);
     }
 
-    //
-
     $conn = connect ();
 
 
