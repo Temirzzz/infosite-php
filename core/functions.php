@@ -170,6 +170,17 @@ function delete_article ($conn,$id) {
     }
 }
 
+
+function genHash ($length = 5) {
+    $symbol = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM0123456789";
+    $code = "";
+    for ($i = 0; $i < $length; $i++) {
+        $code .= $symbol[rand(0, strlen($symbol) -1)];
+    }
+    return $code;
+}
+
+
 function close ($conn) {
     mysqli_close($conn);
 }

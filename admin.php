@@ -1,8 +1,6 @@
 <?php
-require_once('template/header.php');
-$data = select($conn);
-close($conn);
-
+require_once('template/header_admin.php');
+$conn = connect();
 ?>
 
 <div class="container">
@@ -12,6 +10,8 @@ close($conn);
                 echo "$flash";
 
                 echo '<div class="mt-5 mb-3 text-center"><h2>Админка</h2></div>';
+                echo '<p><a href="./logout.php"><button class="btn btn-success">Выйти</button></a></p>';
+                echo 'Welcome: '.$user['user_name'];
                 echo '<div class="mt-3 mb-3 text-right"><a href="./admin_create.php"><button class="btn btn-success">Добавить запись</button></a></div>';
                 $out = '<table class="table table-striped">';
                 $out .= '<tr><th>Id</th><th>Title</th><th>Descr_min</th><th>Image</th><th>Update</th><th>Action</th></tr>';
