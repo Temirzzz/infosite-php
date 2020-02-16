@@ -1,3 +1,8 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
 html, body {
     height: 100%;
 }
@@ -5,18 +10,12 @@ html, body {
 .wrap {
     display: flex;
     flex-direction: column;
-    height: 100%;
 }
-
-.content {
-    flex-grow: 0;
-    flex-shrink: 0;
-    flex-basis: auto;
+.contant {
+    padding-bottom: 150px;
 }
 
 .footer {
-    flex-grow: 0;
-    flex-shrink: 0;
-    flex-basis: auto;
+    margin-top: -100px;
+    height: 100px;
 }
-
