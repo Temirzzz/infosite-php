@@ -1,7 +1,7 @@
 <?php
 
 define('SERVERNAME', 'localhost');
-define('USENAME', 'root');
+define('USENAME', '');
 define('PASSWORD', '');
 define('BASENAME', 'info_db');
 
